@@ -9,6 +9,17 @@ class Autocomplete extends OriginalAutocomplete {
 	 * scrollbars appearing inadvertently.
 	 */
 	handleInputBlur() {}
+
+	/*
+	 * Adds defeaultValue reset behaviours
+	 */
+	componentDidUpdate( prevProps, prevState ) {
+		super.componentDidUpdate( prevProps, prevState );
+
+		if ( this.props.defaultValue === '' && prevProps.defaultValue !== '' ) {
+			this.setState( { query: '' } );
+		}
+	}
 }
 
 export default Autocomplete;

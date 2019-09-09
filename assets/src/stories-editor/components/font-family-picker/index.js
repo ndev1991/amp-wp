@@ -93,6 +93,7 @@ function FontFamilyPicker( {
 					);
 				} }
 			/>
+			<button onClick={ () => onChange( { name: '' } ) }>Reset font</button>
 		</BaseControl>
 	);
 }
