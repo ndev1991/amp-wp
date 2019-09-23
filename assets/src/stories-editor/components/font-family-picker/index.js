@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import { BaseControl } from '@wordpress/components';
 import { withInstanceId } from '@wordpress/compose';
+import { BlockIcon } from '@wordpress/block-editor';
 
 /**
  * Internal dependencies
@@ -31,7 +32,7 @@ function FontFamilyPicker( {
 	const suggest = ( query, populateResults ) => {
 		const searchResults = query ?
 			results.filter( ( result ) => result.name.toLowerCase().indexOf( query.toLowerCase() ) !== -1 ) :
-			[];
+			results;
 		populateResults( searchResults );
 	};
 
@@ -63,13 +64,15 @@ function FontFamilyPicker( {
 						inputValue: inputValueTemplate,
 					}
 				}
-				minLength={ 2 }
+
 				onConfirm={ onChange }
-				showAllValues={ false }
+				showAllValues={ true }
 				confirmOnBlur={ false }
 				defaultValue={ value || '' }
-				dropdownArrow={ () => '' }
-				preserveNullOptions={ true }
+				dropdownArrow={ () => (
+					<BlockIcon icon={ 'arrow-down' } className='autocomplete__icon' />
+				) }
+				preserveNullOptions={ false }
 				placeholder={ __( 'None', 'amp' ) }
 				displayMenu="overlay"
 				tNoResults={ () =>

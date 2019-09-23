@@ -30,6 +30,10 @@ class Autocomplete extends OriginalAutocomplete {
 		this.props.onConfirm( null );
 	}
 
+	handleScroll(event){
+		console.log(event);
+	}
+
 	/**
 	 * Override render method, to add clear font button.
 	 *
@@ -43,10 +47,12 @@ class Autocomplete extends OriginalAutocomplete {
 			name,
 			placeholder,
 			required,
+			showAllValues,
 			tNoResults,
 			tStatusQueryTooShort,
 			tStatusSelectedOption,
 			tStatusResults,
+			dropdownArrow: dropdownArrowFactory
 		} = this.props;
 		const { focused, hovered, menuOpen, options, query, selected } = this.state;
 		const autoselect = this.hasAutoselect();
@@ -81,6 +87,18 @@ class Autocomplete extends OriginalAutocomplete {
 		const hintValue = ( optionBeginsWithQuery && autoselect ) ?
 			query + selectedOptionText.substr( queryLength ) :
 			'';
+		let dropdownArrow;
+		const dropdownArrowClassName = `${cssNamespace}__dropdown-arrow-down`;
+
+		// we only need a dropdown arrow if showAllValues is set to a truthy value
+		if (showAllValues) {
+			dropdownArrow = dropdownArrowFactory({ className: dropdownArrowClassName })
+
+			// if the factory returns a string we'll render this as HTML (usage w/o (P)React)
+			if (typeof dropdownArrow === 'string') {
+				dropdownArrow = <div className={`${cssNamespace}__dropdown-arrow-down-wrapper`} dangerouslySetInnerHTML={{ __html: dropdownArrow }} />
+			}
+		}
 
 		return (
 			<div className={ wrapperClassName } onKeyDown={ this.handleKeyDown } role="combobox" tabIndex="-1" aria-expanded={ menuOpen ? 'true' : 'false' }>
@@ -118,15 +136,8 @@ class Autocomplete extends OriginalAutocomplete {
 					required={ required }
 					value={ query }
 				/>
-				{ query && ! menuOpen && queryLongEnough && (
 
-					<IconButton
-						icon="no"
-						label={ __( 'Clear Font', 'amp' ) }
-						onClick={ ( event ) => this.handleClearClick( event ) }
-						className="autocomplete__icon"
-					/>
-				) }
+				{dropdownArrow}
 
 				<ul
 					className={ `${ menuClassName } ${ menuModifierDisplayMenu } ${ menuModifierVisibility }` }
