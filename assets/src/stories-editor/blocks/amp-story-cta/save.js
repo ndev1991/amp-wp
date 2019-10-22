@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 /**
  * WordPress dependencies
  */
+import { RichText } from '@wordpress/block-editor';
 import { RawHTML } from '@wordpress/element';
 
 /**
@@ -29,13 +30,20 @@ const CallToActionSave = ( { attributes } ) => {
 
 	styles.top = btnPositionTop ? `${ btnPositionTop }%` : undefined;
 	styles.left = btnPositionLeft ? `${ btnPositionLeft }%` : undefined;
-	styles.width = btnWidth ? `${ btnWidth }%` : undefined;
-	styles.height = btnHeight ? `${ btnHeight }%` : undefined;
-	styles.display = 'flex';
 
-	// Uses RawHTML to mimic RichText.Content behavior.
-	return (
-		<amp-story-cta-layer id={ anchor ? anchor : getUniqueId() }>
+	let content;
+
+	console.log("saving CTA now!", btnWidth, btnHeight);
+
+	// If it's an old story, this CTA button might not have width nor height.
+	if ( btnWidth && btnHeight ) {
+		// If it does have both, use new rendering idea.
+		styles.width = `${ btnWidth }%`;
+		styles.height = `${ btnHeight }%`;
+		styles.display = 'flex';
+
+		// Uses RawHTML to mimic RichText.Content behavior.
+		content = (
 			<div className="amp-cta-button-wrapper">
 				<a
 					className={ className }
@@ -49,6 +57,23 @@ const CallToActionSave = ( { attributes } ) => {
 					</amp-fit-text>
 				</a>
 			</div>
+		);
+	} else {
+		// If not, use old rendering with a simple RichText component.
+		content = (
+			<RichText.Content
+				tagName="a"
+				className={ className }
+				href={ url }
+				style={ styles }
+				value={ text }
+			/>
+		);
+	}
+
+	return (
+		<amp-story-cta-layer id={ anchor ? anchor : getUniqueId() }>
+			{ content }
 		</amp-story-cta-layer>
 	);
 };
