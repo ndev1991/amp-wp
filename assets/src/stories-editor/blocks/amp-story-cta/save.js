@@ -33,8 +33,6 @@ const CallToActionSave = ( { attributes } ) => {
 
 	let content;
 
-	console.log("saving CTA now!", btnWidth, btnHeight);
-
 	// If it's an old story, this CTA button might not have width nor height.
 	if ( btnWidth && btnHeight ) {
 		// If it does have both, use new rendering idea.
