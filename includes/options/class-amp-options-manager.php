@@ -100,6 +100,14 @@ class AMP_Options_Manager {
 				unregister_post_type( AMP_Story_Post_Type::POST_TYPE_SLUG );
 			}
 
+			$template_post_type = get_post_type_object( AMP_Template_Post_Type::POST_TYPE_SLUG );
+			if ( self::is_stories_experience_enabled() && ! $template_post_type ) {
+				AMP_Template_Post_Type::register();
+			} elseif ( ! self::is_stories_experience_enabled() && $template_post_type ) {
+				$template_post_type->remove_rewrite_rules();
+				unregister_post_type( AMP_Template_Post_Type::POST_TYPE_SLUG );
+			}
+
 			// Flush rewrite rules, with ensuring up to date for website experience.
 			if ( self::is_website_experience_enabled() ) {
 				add_rewrite_endpoint( amp_get_slug(), EP_PERMALINK );

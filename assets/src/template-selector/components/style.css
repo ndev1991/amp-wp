@@ -1,0 +1,20 @@
+.template-container,
+.template-type-container {
+	display: flex;
+	margin: 15px;
+}
+
+.each-template {
+	height: 400px;
+	line-height: 400px;
+	width: 400px;
+	margin: 15px;
+	padding: 15px;
+	border: 1px solid theme(primary);
+	font-size: 3em;
+	text-align: center;
+}
+
+.each-template-type {
+	margin-left: 15px !important;
+}
