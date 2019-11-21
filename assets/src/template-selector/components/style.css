@@ -1,7 +1,7 @@
 .template-container,
 .template-type-container {
 	display: flex;
-	margin: 15px;
+	margin: 15px 15px 15px -15px;
 }
 
 .each-template {

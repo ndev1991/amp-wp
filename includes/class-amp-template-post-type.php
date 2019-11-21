@@ -156,7 +156,7 @@ class AMP_Template_Post_Type {
 	 * Template for admin page.
 	 */
 	public static function display_template() {
-		printf( '<div id="%s"></div>', esc_attr( self::AMP_STORIES_SCRIPT_ELEMENT ) );
+		printf( '<div class="wrap"><h1 class="wp-heading-inline">%s</h1><a href="%s" class="page-title-action">%s</a><hr class="wp-header-end" /><div id="%s"></div></div>', esc_html( __( 'Select Template', 'amp' ) ), esc_attr( admin_url( 'post-new.php?post_type=' . AMP_Story_Post_Type::POST_TYPE_SLUG ) ), esc_html( __( 'New', 'amp' ) ), esc_attr( self::AMP_STORIES_SCRIPT_ELEMENT ) );
 	}
 
 	/**
