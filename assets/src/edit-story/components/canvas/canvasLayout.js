@@ -68,7 +68,7 @@ const DisplayLayer = styled.div`
 	${ Layout }
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(0, 255, 0, 0.2);
+		background-color: rgba(0, 255, 0, 0.2);
 		transform: translateZ(200px);
 	` ) }
 `;
@@ -78,7 +78,7 @@ const DisplayCanvas = styled.div`
 	grid-area: page;
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(255, 255, 255, 0.2);
+		background-color: rgba(255, 255, 255, 0.2);
 	` ) }
 `;
 
@@ -88,7 +88,7 @@ const NavLayer = styled.div`
 	pointer-events: none;
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(0, 0, 255, 0.2);
+		background-color: rgba(0, 0, 255, 0.2);
 		transform: translateZ(400px);
 	` ) }
 `;
@@ -101,7 +101,7 @@ const NavArea = styled.div`
 	pointer-events: initial;
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(0, 0, 255, 0.4);
+		background-color: rgba(0, 0, 255, 0.4);
 		transform: translateZ(400px);
 	` ) }
 `;
@@ -112,7 +112,7 @@ const FramesAndSelectionLayer = styled.div`
 	pointer-events: none;
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(0, 255, 255, 0.2);
+		background-color: rgba(0, 255, 255, 0.2);
 		transform: translateZ(600px);
 	` ) }
 `;
@@ -148,13 +148,16 @@ const SelectionOverlay = styled.div`
 	` ) }
 `;
 
+// QQQQ: only show graypane for few element types.
 const EditLayer = styled.div`
 	${ Layer }
 	${ Layout }
 	pointer-events: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1;
 
 	${ DEBUG_ANGLE && ( `
-		background: rgba(255, 140, 50, 0.2);
+		background-color: rgba(255, 140, 50, 0.2);
 		transform: translateZ(800px);
 	` ) }
 `;
