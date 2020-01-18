@@ -5,15 +5,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 /**
- * WordPress dependencies
- */
-import { useCallback } from '@wordpress/element';
-
-/**
  * Internal dependencies
  */
-import { useCanvas } from '../../components/canvas';
-import useDoubleClick from '../../utils/useDoubleClick';
 import { ElementFillContent } from '../shared';
 import { getImgProps, ImageWithScale } from './util';
 
@@ -27,23 +20,17 @@ const Img = styled.img`
 	${ ImageWithScale }
 `;
 
-function ImageDisplay( { id, src, origRatio, width, height, scale, focalX, focalY } ) {
+function ImageDisplay( { src, origRatio, width, height, scale, focalX, focalY } ) {
+	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
 	const imgProps = getImgProps( width, height, scale, focalX, focalY, origRatio );
-	const {
-		actions: { setEditingElement },
-	} = useCanvas();
-	const handleSingleClick = useCallback( () => {}, [] );
-	const handleDoubleClick = useCallback( () => setEditingElement( id ), [ id, setEditingElement ] );
-	const getHandleClick = useDoubleClick( handleSingleClick, handleDoubleClick );
 	return (
-		<Element onClick={ getHandleClick( id ) }>
+		<Element>
 			<Img draggable={ false } src={ src } { ...imgProps } />
 		</Element>
 	);
 }
 
 ImageDisplay.propTypes = {
-	id: PropTypes.string.isRequired,
 	src: PropTypes.string.isRequired,
 	origRatio: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,

@@ -1,9 +1,8 @@
-// QQQ: rename to `elementDisplay.js`
 /**
  * External dependencies
  */
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 /**
  * Internal dependencies
@@ -11,13 +10,17 @@ import PropTypes from 'prop-types';
 import { getDefinitionForType } from '../../elements';
 import { ElementWithPosition, ElementWithSize, ElementWithRotation, getBox } from '../../elements/shared';
 
+// Background color is used to make the edited element more prominent and
+// easier to see.
 const Wrapper = styled.div`
-	${ ElementWithPosition }
-	${ ElementWithSize }
-	${ ElementWithRotation }
+  ${ ElementWithPosition }
+  ${ ElementWithSize }
+  ${ ElementWithRotation }
+  pointer-events: initial;
+	background-color: rgba(255, 255, 255, 0.5);
 `;
 
-function ElementDisplay( {
+function ElementEdit( {
 	element: {
 		id,
 		type,
@@ -31,7 +34,7 @@ function ElementDisplay( {
 	},
 } ) {
 	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
-	const { Display } = getDefinitionForType( type );
+	const { Edit } = getDefinitionForType( type );
 
 	const box = getBox( { x, y, width, height, rotationAngle, isFullbleed } );
 	// eslint-disable-next-line @wordpress/no-unused-vars-before-return
@@ -40,14 +43,15 @@ function ElementDisplay( {
 	return (
 		<Wrapper
 			{ ...box }
+			onMouseDown={ ( evt ) => evt.stopPropagation() }
 		>
-			<Display { ...props } />
+			<Edit { ...props } />
 		</Wrapper>
 	);
 }
 
-ElementDisplay.propTypes = {
+ElementEdit.propTypes = {
 	element: PropTypes.object.isRequired,
 };
 
-export default ElementDisplay;
+export default ElementEdit;

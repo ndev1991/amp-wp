@@ -1,4 +1,3 @@
-//QQQQ: rename file to `pageDisplay.js`
 /**
  * External dependencies
  */
@@ -9,41 +8,39 @@ import styled from 'styled-components';
  */
 import { useStory } from '../../app';
 import withOverlay from '../overlay/withOverlay';
+import Selection from './selection';
 import useCanvas from './useCanvas';
-import Element from './element';
+import ElementFrame from './elementFrame';
 
 const Background = withOverlay( styled.div.attrs( { className: 'container' } )`
-	background-color: ${ ( { theme } ) => theme.colors.fg.v1 };
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
 ` );
 
-function PageDisplay() {
+function PageFrames() {
 	const {
 		state: { currentPage },
 	} = useStory();
-
 	const {
-		state: { editingElement },
+		actions: { setPageContainer },
 	} = useCanvas();
 
 	return (
-		<Background>
+		<Background ref={ setPageContainer }>
+
 			{ currentPage && currentPage.elements.map( ( { id, ...rest } ) => {
-				if ( editingElement === id ) {
-					return null;
-				}
 				return (
-					<Element
+					<ElementFrame
 						key={ id }
 						element={ { id, ...rest } }
 					/>
 				);
 			} ) }
+
+			<Selection />
 		</Background>
 	);
 }
 
-export default PageDisplay;
+export default PageFrames;
