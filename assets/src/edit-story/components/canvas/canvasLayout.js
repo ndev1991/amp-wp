@@ -28,7 +28,7 @@ const WorkspaceBackground = styled.div`
 	user-select: none;
 
 	${ DEBUG_ANGLE && ( `
-		background-color: pink;
+		background-color: darkgray;
 		backface-visibility: hidden;
 		transform-style: preserve-3d;
 		transform-origin: 50% 50%;
