@@ -9,6 +9,13 @@ import PropTypes from 'prop-types';
  */
 import { __ } from '@wordpress/i18n';
 
+export const RowPanel = styled.form`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+`;
+
 export const Panel = styled.form`
 	display: flex;
 	flex-direction: column;

@@ -37,7 +37,8 @@ const Group = styled.label`
   align-items: center;
   border: 1px solid ${ ( { theme } ) => theme.colors.fg.v3 };
   border-radius: 4px;
-  width: 100px;
+	width: 100px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 	opacity: ${ ( { disabled } ) => disabled ? 0.7 : 1 };
 `;
