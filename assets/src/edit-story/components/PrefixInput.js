@@ -11,36 +11,42 @@ import PropTypes from 'prop-types';
 const Label = styled.span`
 	color: ${ ( { theme } ) => theme.colors.fg.v5 };
 	font-size: 15px;
-  line-height: 16px;
-  text-align: center;
+	line-height: 16px;
+	text-align: center;
 	width: 35px;
 `;
 
 const Input = styled.input`
-  color: ${ ( { theme } ) => theme.colors.fg.v6 };
-  border: 0 !important;
+	color: ${ ( { theme } ) => theme.colors.fg.v6 };
+	border: 0 !important;
 	font-size: 15px;
 	line-height: 16px;
-  width: 63px;
-  padding: 0 !important;
-  margin: 0;
-  
-  :focus {
-    outline: none !important;
-    box-shadow: none !important;
-  }
+	width: 63px;
+	padding: 0 !important;
+	margin: 0;
+	flex-grow: 1;
+
+	:focus {
+		outline: none !important;
+		box-shadow: none !important;
+	}
 `;
 
 const Group = styled.label`
 	color: ${ ( { theme } ) => theme.colors.mg.v1 };
-  display: flex;
-  align-items: center;
-  border: 1px solid ${ ( { theme } ) => theme.colors.fg.v3 };
-  border-radius: 4px;
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	border: 1px solid ${ ( { theme } ) => theme.colors.fg.v3 };
+	border-radius: 4px;
 	width: 100px;
 	margin-top: 5px;
 	margin-bottom: 5px;
-	opacity: ${ ( { disabled } ) => disabled ? 0.7 : 1 };
+	opacity: 1;
+	${ ( { disabled } ) => disabled && `
+		pointer-events: none;
+		opacity: .7;
+	` }
 `;
 
 function PrefixInput( { type, label, value, isMultiple, onChange, disabled, min, max } ) {
