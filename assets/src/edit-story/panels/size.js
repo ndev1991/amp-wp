@@ -22,9 +22,11 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 	const isFullbleed = getCommonValue( selectedElements, 'isFullbleed' );
 	const [ state, setState ] = useState( { width, height } );
 	const [ lockRatio, setLockRatio ] = useState( true );
+
 	useEffect( () => {
 		setState( { width, height } );
 	}, [ width, height ] );
+
 	const handleSubmit = useCallback(
 		( event ) => {
 			onSetProperties( state );
@@ -32,6 +34,31 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 		},
 		[ state, onSetProperties ],
 	);
+
+	const handleRatio = useCallback( () => {
+		setLockRatio( ! lockRatio );
+	}, [ lockRatio, setLockRatio ] );
+
+	const handleWidth = useCallback( ( value ) => {
+		const ratio = width / height;
+		const newWidth = isNaN( value ) || value === '' ? '' : parseFloat( value );
+		setState( {
+			...state,
+			width: newWidth,
+			height: typeof newWidth === 'number' && lockRatio ? newWidth / ratio : height,
+		} );
+	}, [ width, height, state, setState, lockRatio ] );
+
+	const handleHeight = useCallback( ( value ) => {
+		const ratio = width / height;
+		const newHeight = isNaN( value ) || value === '' ? '' : parseFloat( value );
+		setState( {
+			...state,
+			height: newHeight,
+			width: typeof newHeight === 'number' && lockRatio ? newHeight * ratio : width,
+		} );
+	}, [ width, height, state, setState, lockRatio ] );
+
 	return (
 		<Panel onSubmit={ handleSubmit }>
 			<Row>
@@ -39,39 +66,21 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 					label={ __( 'W', 'amp' ) }
 					value={ state.width }
 					isMultiple={ width === '' }
-					onChange={ ( value ) => {
-						const ratio = width / height;
-						const newWidth = isNaN( value ) || value === '' ? '' : parseFloat( value );
-						setState( {
-							...state,
-							width: newWidth,
-							height: typeof newWidth === 'number' && lockRatio ? newWidth / ratio : height,
-						} );
-					} }
+					onChange={ handleWidth }
 					disabled={ isFullbleed }
 				/>
 				<SpaceSpan />
 				<LockSwitch
 					label={ __( 'Lock Icon', 'amp' ) }
 					checked={ lockRatio }
-					onClick={ () => {
-						setLockRatio( ! lockRatio );
-					} }
+					onClick={ handleRatio }
 				/>
 				<SpaceSpan />
 				<PrefixInput
 					label={ __( 'H', 'amp' ) }
 					value={ state.height }
 					isMultiple={ height === '' }
-					onChange={ ( value ) => {
-						const ratio = width / height;
-						const newHeight = isNaN( value ) || value === '' ? '' : parseFloat( value );
-						setState( {
-							...state,
-							height: newHeight,
-							width: typeof newHeight === 'number' && lockRatio ? newHeight * ratio : width,
-						} );
-					} }
+					onChange={ handleHeight }
 					disabled={ isFullbleed }
 				/>
 			</Row>
