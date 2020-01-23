@@ -8,7 +8,7 @@ import BackgroundColorPanel from './backgroundColor';
 import FullbleedPanel from './fullbleed';
 import FontPanel from './font';
 import RotationPanel from './rotationAngle';
-import SizePanel from './size';
+import SizePanel from './size/';
 import PositionPanel from './position';
 import ScalePanel from './scale';
 import TextPanel from './text';

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
  * Internal dependencies
  */
 
-const CheckBoxInput = styled.input`
+const CheckBoxInput = styled.input.attrs( { type: 'checkbox' } )`
 	position: absolute;
 	opacity: 0;
 `;
@@ -44,7 +44,7 @@ const ContainerLabel = styled.label`
 
 const IconSwitch = ( { checked, width, height, label, onClick, CheckedIcon, UncheckedIcon, ...props } ) => (
 	<ContainerLabel width={ width } height={ height } ariaLabel={ label } { ...props }>
-		<CheckBoxInput type="checkbox" checked={ checked } onClick={ onClick } />
+		<CheckBoxInput checked={ checked } onClick={ onClick } />
 		<MarkSpan width={ width } height={ height }>
 			{ checked ? <CheckedIcon /> : <UncheckedIcon /> }
 		</MarkSpan>
