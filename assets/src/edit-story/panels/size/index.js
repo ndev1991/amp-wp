@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 /**
  * WordPress dependencies
  */
-import { useEffect, useCallback } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -25,23 +25,14 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 	const {
 		lockRatio,
 		state,
-		setState,
 		handleHeight,
 		handleWidth,
 		handleToggleLockRatio,
+		handleSubmit,
 	} = useSize( width, height );
 
-	useEffect( () => {
-		setState( { width, height } );
-	}, [ width, height, setState ] );
-
-	const handleSubmit = useCallback( ( event ) => {
-		onSetProperties( state );
-		event.preventDefault();
-	}, [ state, onSetProperties ]	);
-
 	return (
-		<Panel onSubmit={ handleSubmit }>
+		<Panel onSubmit={ handleSubmit( onSetProperties ) }>
 			<Row>
 				<PrefixInput
 					label={ __( 'W', 'amp' ) }

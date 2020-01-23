@@ -2,7 +2,7 @@
 /**
  * WordPress dependencies
  */
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -11,6 +11,10 @@ import { useCallback, useState } from '@wordpress/element';
 function useSize( width, height ) {
 	const [ lockRatio, setLockRatio ] = useState( true );
 	const [ state, setState ] = useState( { width, height } );
+
+	useEffect( () => {
+		setState( { width, height } );
+	}, [ width, height, setState ] );
 
 	const handleToggleLockRatio = useCallback( () => {
 		setLockRatio( ( val ) => ! val );
@@ -36,6 +40,11 @@ function useSize( width, height ) {
 		} );
 	}, [ width, height, state, setState, lockRatio ] );
 
+	const handleSubmit = useCallback( ( onSetProperties ) => ( event ) => {
+		onSetProperties( state );
+		event.preventDefault();
+	}, [ state ]	);
+
 	return {
 		lockRatio,
 		state,
@@ -43,6 +52,7 @@ function useSize( width, height ) {
 		handleWidth,
 		handleHeight,
 		handleToggleLockRatio,
+		handleSubmit,
 	};
 }
 
