@@ -12,8 +12,8 @@ import { useState, useCallback } from '@wordpress/element';
  * @return {Array} Array of value, state and setState.
  * @example const [ toggle, setToggle ] = useToggle( default )
  */
-function useToggle( initialValue = undefined ) {
-	const [ toggle, setToggle ] = useState( initialValue || false );
+function useToggle( initialValue = false ) {
+	const [ toggle, setToggle ] = useState( initialValue );
 
 	const handleToggle = useCallback( () => {
 		setToggle( ( val ) => ! val );
