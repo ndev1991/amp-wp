@@ -27,12 +27,16 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 		state,
 		handleHeight,
 		handleWidth,
-		handleToggleLockRatio,
-		handleSubmit,
+		toggleLockRatio,
 	} = useSize( width, height );
 
+	const handleSubmit = useCallback( ( event ) => {
+		onSetProperties( state );
+		event.preventDefault();
+	}, [ state, onSetProperties ]	);
+
 	return (
-		<Panel onSubmit={ handleSubmit( onSetProperties ) }>
+		<Panel onSubmit={ handleSubmit }>
 			<Row>
 				<PrefixInput
 					label={ __( 'W', 'amp' ) }
@@ -45,7 +49,7 @@ function SizePanel( { selectedElements, onSetProperties } ) {
 				<LockSwitch
 					label={ __( 'Lock Icon', 'amp' ) }
 					checked={ lockRatio }
-					onClick={ handleToggleLockRatio }
+					onClick={ toggleLockRatio }
 				/>
 				<SpaceSpan />
 				<PrefixInput

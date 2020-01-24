@@ -7,18 +7,20 @@ import { useCallback, useState, useEffect } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import useToggle from '../../utils/useToggle';
 
-function useSize( width, height ) {
-	const [ lockRatio, setLockRatio ] = useState( true );
+/**
+ * @param {number} width  Initial width
+ * @param {number} height  Initial height
+ * @return {Object} Array of value, state and setState.
+ */
+function useSize( width = 0, height = 0 ) {
+	const [ lockRatio, toggleLockRatio ] = useToggle( true );
 	const [ state, setState ] = useState( { width, height } );
 
 	useEffect( () => {
 		setState( { width, height } );
-	}, [ width, height, setState ] );
-
-	const handleToggleLockRatio = useCallback( () => {
-		setLockRatio( ( val ) => ! val );
-	}, [ setLockRatio ] );
+	}, [ width, height ] );
 
 	const handleWidth = useCallback( ( value ) => {
 		const ratio = width / height;
@@ -40,19 +42,12 @@ function useSize( width, height ) {
 		} );
 	}, [ width, height, state, setState, lockRatio ] );
 
-	const handleSubmit = useCallback( ( onSetProperties ) => ( event ) => {
-		onSetProperties( state );
-		event.preventDefault();
-	}, [ state ]	);
-
 	return {
 		lockRatio,
 		state,
-		setState,
 		handleWidth,
 		handleHeight,
-		handleToggleLockRatio,
-		handleSubmit,
+		toggleLockRatio,
 	};
 }
 

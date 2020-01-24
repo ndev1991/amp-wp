@@ -14,16 +14,13 @@ const CheckBoxInput = styled.input.attrs( { type: 'checkbox' } )`
 `;
 
 const MarkSpan = styled.span`
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: ${ ( { height } ) => height }px;
-	width: ${ ( { width } ) => width }px;
+	width: 100%;
+	height: 100%;
 	color: ${ ( { theme } ) => theme.colors.fg.v4 };
 `;
 
 const ContainerLabel = styled.label`
-	display: block;
+	display: flex;
 	position: relative;
 	padding: 0;
 	cursor: pointer;
@@ -45,7 +42,7 @@ const ContainerLabel = styled.label`
 const IconSwitch = ( { checked, width, height, label, onClick, CheckedIcon, UncheckedIcon, ...props } ) => (
 	<ContainerLabel width={ width } height={ height } ariaLabel={ label } { ...props }>
 		<CheckBoxInput checked={ checked } onClick={ onClick } />
-		<MarkSpan width={ width } height={ height }>
+		<MarkSpan>
 			{ checked ? <CheckedIcon /> : <UncheckedIcon /> }
 		</MarkSpan>
 	</ContainerLabel>
