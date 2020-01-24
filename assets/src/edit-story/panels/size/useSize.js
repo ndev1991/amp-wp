@@ -25,22 +25,22 @@ function useSize( width = 0, height = 0 ) {
 	const handleWidth = useCallback( ( value ) => {
 		const ratio = width / height;
 		const newWidth = isNaN( value ) || value === '' ? '' : parseFloat( value );
-		setState( {
-			...state,
+		setState( ( val ) => ( {
+			...val,
 			width: newWidth,
 			height: typeof newWidth === 'number' && lockRatio ? newWidth / ratio : height,
-		} );
-	}, [ width, height, state, setState, lockRatio ] );
+		} ) );
+	}, [ width, height, lockRatio ] );
 
 	const handleHeight = useCallback( ( value ) => {
 		const ratio = width / height;
 		const newHeight = isNaN( value ) || value === '' ? '' : parseFloat( value );
-		setState( {
-			...state,
+		setState( ( val ) => ( {
+			...val,
 			height: newHeight,
 			width: typeof newHeight === 'number' && lockRatio ? newHeight * ratio : width,
-		} );
-	}, [ width, height, state, setState, lockRatio ] );
+		} ) );
+	}, [ width, height, lockRatio ] );
 
 	return {
 		lockRatio,

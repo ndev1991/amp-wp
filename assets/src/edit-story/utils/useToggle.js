@@ -4,15 +4,20 @@
  */
 import { useState, useCallback } from '@wordpress/element';
 /**
+ * As common toggling function to handle a toggle value
+ * Avoid duplicated setState function from it's uses.
+ * Can use this function for boolean based or toggle based feature.
+ *
  * @param {Function} initialValue  Initial value of the variable
  * @return {Array} Array of value, state and setState.
+ * @example const [ toggle, setToggle ] = useToggle( default )
  */
 function useToggle( initialValue = undefined ) {
 	const [ toggle, setToggle ] = useState( initialValue || false );
 
 	const handleToggle = useCallback( () => {
 		setToggle( ( val ) => ! val );
-	}, [ setToggle ] );
+	}, [ ] );
 
 	return [ toggle, handleToggle ];
 }

@@ -9,14 +9,14 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import useToggle from '../useToggle';
 
 describe( 'useToggle Hook', () => {
-	it( 'set initial value for toggle', () => {
+	it( 'initial useToggle with true input param and check the result is true', () => {
 		const api = renderHook( () => useToggle( true ) );
 		const [ value ] = api.result.current;
 
 		expect( value ).toStrictEqual( true );
 	} );
 
-	it( 'initial toggle value should be true and toggle function should update the value to false', async () => {
+	it( 'initial toggle value should be false without default value and toggle function should update the value to true', async () => {
 		const api = renderHook( () => useToggle() );
 		const [ value, toggleValue ] = api.result.current;
 
