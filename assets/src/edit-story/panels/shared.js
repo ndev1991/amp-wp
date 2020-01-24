@@ -9,6 +9,18 @@ import PropTypes from 'prop-types';
  */
 import { __ } from '@wordpress/i18n';
 
+export const Row = styled.div`
+	display: flex;
+	flex-direction: ${ ( { flexDirection } ) => flexDirection || 'row' };
+	align-items: ${ ( { alignItems } ) => alignItems || 'center' };
+`;
+
+export const SpaceSpan = styled.span`
+	margin-right: ${ ( { space } ) => space || 6 }px;
+	width: ${ ( { width } ) => width || 0 }px;
+	flex-grow: ${ ( { flexGrow } ) => flexGrow || 1 };
+`;
+
 export const Panel = styled.form`
 	display: flex;
 	flex-direction: column;
